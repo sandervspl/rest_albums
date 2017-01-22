@@ -1,7 +1,9 @@
 {
   "name": "albums0832970",
   "version": "1.0.0",
-  "engines": { "node": "7.0.0" },
+  "engines": {
+    "node": "7.0.0"
+  },
   "description": "Prog 2 opdracht",
   "main": "./src/index.js",
   "homepage": "https://albums0832970.herokuapp.com",
@@ -19,9 +21,10 @@
     "javascript"
   ],
   "dependencies": {
+    "axios": "^0.15.3",
     "express": "^4.14.0",
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "stylus": "^0.54.5"
   },
   "devDependencies": {

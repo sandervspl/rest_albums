@@ -1,14 +1,14 @@
+// dependencies
 import React from 'react'
 import AlbumList from '../../containers/AlbumList'
-import AlbumDetails from '../../containers/AlbumDetails'
+
+// style
+import './style.styl'
 
 const Albums = () => (
-    <div>
-        <h2>Album List</h2>
+    <div id="albums-wrapper">
+        <h1 className="title-big">Albums</h1>
         <AlbumList />
-        <hr/>
-        <h2>Album Details</h2>
-        <AlbumDetails />
     </div>
 )
 

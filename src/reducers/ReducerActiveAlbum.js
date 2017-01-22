@@ -11,7 +11,8 @@ export default function (state = null, action)
         case 'ALBUM_SELECTED':
             return action.payload
             break
-    }
 
-    return state
+        default:
+            return state
+    }
 }

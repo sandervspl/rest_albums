@@ -1,2 +1,34 @@
-body
-  color red
+@import "./vars.styl"
+
+*
+  box-sizing border-box
+  font-family 'Roboto', Verdana, sans-serif
+  letter-spacing 1px
+
+html, body
+  margin  0
+  padding 0
+  color _white
+  font-weight _light
+
+html
+  background _red
+  background -webkit-linear-gradient(top left, _red, _orange)
+  background linear-gradient(to bottom right, _red, _orange)
+
+ul li
+  list-style none
+
+.loading
+  position absolute
+  top 0
+  left 0
+  width 100%
+  height 100%
+  background rgba(0, 0, 0, .5) url('/public/images/spinner.svg') center/50px no-repeat
+  z-index 10000
+  pointer-events auto
+
+  .loaded
+    background: rgba(0, 0, 0, 0)
+    pointer-events: none

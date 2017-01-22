@@ -16,13 +16,14 @@ class AlbumList extends Component
 
     renderAlbumList()
     {
-        return this.props.albums.map((album) => {
+        return this.props.albums.map((album, index) => {
+            let c = 'list-item item-' + index
             return (
                 <li
                     key={album.id}
-                    onClick={() => this.props.selectAlbum(album)}
+                    className={c}
                 >
-                    {album.title}
+                    {album.name}
                 </li>
             )
         })
@@ -31,7 +32,7 @@ class AlbumList extends Component
     render()
     {
         return (
-            <ul>
+            <ul className="list-spaced">
                 {this.renderAlbumList()}
             </ul>
         )
@@ -47,7 +48,7 @@ function mapStateToProps(state) {
 
 // Get actions and pass them as props
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({selectAlbum: selectAlbum}, dispatch)
+    return bindActionCreators({}, dispatch)
 }
 
 // We don't want to return the plain component anymore, we want to return the smart Container

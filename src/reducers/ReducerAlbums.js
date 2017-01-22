@@ -1,27 +1,18 @@
 /*
- * The albums reducer will always return an array of users no matter what
- * You need to return something, so if there are no users then just return an empty array
+ * All reducers get two parameters passed in, state and action that occurred
+ *       > state isn't entire apps state, only the part of state that this reducer is responsible for
  * */
 
-export default function () {
-    return [
-        {
-            id: 1,
-            title: "The Life Of Pablo",
-            tracksNum: 300,
-            thumbnail: "/public/images/pablo.jpeg"
-        },
-        {
-            id: 2,
-            title: "My Beautiful Dark Twisted Fantasy",
-            tracksNum: 12,
-            thumbnail: "/public/images/mbdtf.jpeg"
-        },
-        {
-            id: 3,
-            title: "Yeezus",
-            tracksNum: 15,
-            thumbnail: "/public/images/yeezus.jpeg"
-        }
-    ]
+// "state = null" is set so that we don't throw an error when app first boots up
+
+export default function (state = [], action) {
+    switch (action.type)
+    {
+        case 'ADD_INITIAL_ALBUMS_DATA':
+            return action.payload
+            break
+
+        default:
+            return state
+    }
 }

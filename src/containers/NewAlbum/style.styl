@@ -1,0 +1,52 @@
+@import "../../style/vars.styl"
+
+.new-album
+  position absolute
+  top 0
+  left 0
+  padding-top 93px !important
+  padding-left 100px !important
+  opacity 0
+  pointer-events none
+  transition opacity .3s ease-in-out
+
+  &.active
+    opacity 1
+    pointer-events auto
+
+  .track-list
+    margin-top 20px
+
+    input[type="text"]
+      margin-top 10px
+      padding-right 20px
+      min-width 150px
+      width 20%
+
+  input[type="text"], input[type="number"]
+    color _white
+    font-size 2em
+    font-weight _light
+    background transparent
+    border none
+    text-overflow ellipsis
+    user-select(none)
+
+    &.row--50
+      width 50%
+      padding-right 20px
+
+    &.fat
+      font-weight _bold
+
+    &:focus
+      outline none
+
+    &::-webkit-input-placeholder
+      color _white
+      opacity .5
+      text-transform capitalize
+
+  input[type="submit"]
+    display block
+    margin-top 30px

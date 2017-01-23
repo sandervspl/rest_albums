@@ -10,9 +10,7 @@ import './style.styl'
 const Nav = () => (
     <nav>
         <ul>
-            <NavItem text="text1" />
-            <NavItem text="text2" />
-            <NavItem text="text3" />
+            <NavItem text="New Album" view="NEW_ALBUM_VIEW" />
         </ul>
     </nav>
 )

@@ -25,10 +25,38 @@ ul li
   left 0
   width 100%
   height 100%
-  background rgba(0, 0, 0, .5) url('/public/images/spinner.svg') center/50px no-repeat
+  background rgba(0, 0, 0, 0) url('/public/images/spinner.svg') center/50px no-repeat
   z-index 10000
   pointer-events auto
+  transition background .3s ease-out
 
-  .loaded
-    background: rgba(0, 0, 0, 0)
-    pointer-events: none
+  &.loaded
+    background rgba(0,0,0,0) center/50px no-repeat
+    pointer-events none
+
+.wrapper
+  padding 30px
+  width 100%
+  height 100%
+
+.relative
+  position relative
+
+.column--50
+  display inline-block
+  width 50%
+  vertical-align top
+
+.title-big
+  padding-left 15px
+  border-left 1px solid white
+
+.btn
+  padding 7px 40px
+  background _white
+  color _red
+  font-size 1em
+  font-weight _normal
+  border 0 !important
+  border-radius 20px
+  cursor pointer

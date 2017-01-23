@@ -2,16 +2,18 @@
 import React from 'react'
 
 // components
-import Albums from './Albums/Albums'
+import Albums from '../containers/Albums/Albums'
 import Nav from './Nav/Nav'
+import NewAlbum from '../containers/NewAlbum/NewAlbum'
 
 // style
 import '../style/style.styl'
 
 const App = () => (
-    <div id="wrapper">
+    <div className="wrapper">
         <Nav />
         <Albums />
+        <NewAlbum />
     </div>
 )
 

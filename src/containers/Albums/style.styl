@@ -1,0 +1,11 @@
+@import "../../style/vars.styl"
+
+.albums-wrapper
+  width 100%
+  opacity .25
+  filter: blur(2px)
+  transition opacity .3s ease-in-out, filter .3s ease-in-out
+
+  &.active
+    filter: none
+    opacity 1

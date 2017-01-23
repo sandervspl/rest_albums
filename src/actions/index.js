@@ -11,3 +11,10 @@ export const addInitialAlbumsData = (data) => {
         payload: data
     }
 }
+
+export const selectView = (view) => {
+    return {
+        type: 'VIEW_SELECTED',
+        payload: view
+    }
+}

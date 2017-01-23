@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
 import AlbumReducer from './ReducerAlbums'
 import ActiveAlbumReducer from './ReducerActiveAlbum'
+import ViewReducer from './ReducerView'
 
 /*
  * We combine all reducers into a single object before updated data is dispatched (sent) to store
@@ -9,7 +10,8 @@ import ActiveAlbumReducer from './ReducerActiveAlbum'
 
 const allReducers = combineReducers({
     albums: AlbumReducer,
-    activeAlbum: ActiveAlbumReducer
+    activeAlbum: ActiveAlbumReducer,
+    activeView: ViewReducer
 })
 
 export default allReducers

@@ -4,6 +4,9 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
+// vars
+import { HOST_URL } from '../../vars/server'
+
 // actions
 import { addAlbumsData, selectAlbum } from '../../actions/index'
 
@@ -25,8 +28,9 @@ class AlbumList extends Component
     {
         this.setState({ loading: true }, () => {
             // load initial data and store it
-            axios.get('https://rest0832970.herokuapp.com/api/products')
-            // axios.get('http://localhost:3000/api/products')
+            const ENDPOINT = `${HOST_URL}/api/products`
+
+            axios.get(ENDPOINT)
                 .then(response => {
                     this.setState({ loading: false }, () => {
                         this.props.addAlbumsData(response.data.items)
@@ -34,6 +38,35 @@ class AlbumList extends Component
                 })
                 .catch(error => {
                     this.setState({ loading: false }, console.warn('Unable to GET from api.', error))
+                })
+        })
+    }
+
+    deleteAlbum = (e) =>
+    {
+        const id = e.target.dataset.id
+        const ENDPOINT_DELETE = `${HOST_URL}/api/products/${id}`
+        const ENDPOINT_GET = `${HOST_URL}/api/products`
+
+        this.setState({ loading: true }, () => {
+            axios.delete(ENDPOINT_DELETE)
+                .then(result => {
+                    // get new album list data from server
+                    axios.get(ENDPOINT_GET)
+                        .then(response => {
+                            this.setState({ loading: false }, () => {
+                                this.props.addAlbumsData(response.data.items)
+                            })
+                        })
+                        .catch(error => {
+                            this.setState({ loading: false }, () => {
+                                console.warn('Unable to GET from api.', error)
+                            })
+                        })
+                })
+                .catch(error => {
+                    console.log('Unable to DELETE from api', error)
+                    this.setState({ loading: false })
                 })
         })
     }
@@ -46,9 +79,9 @@ class AlbumList extends Component
                 <li
                     key={album.id}
                     className={c}
-                    onClick={() => this.props.selectAlbum(album)}
                 >
-                    {album.title}
+                    <span className="delete" data-id={album.id} onClick={this.deleteAlbum}>delete</span>
+                    <span onClick={() => this.props.selectAlbum(album)}>{album.title}</span>
                 </li>
             )
         })

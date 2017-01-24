@@ -5,6 +5,9 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
+// vars
+import { HOST_URL } from '../../vars/server'
+
 // actions
 import { selectView, addAlbumsData } from '../../actions/index'
 
@@ -18,7 +21,12 @@ class NewAlbum extends Component
     {
         super(props)
         this.state = {
-            tracksNum: 1
+            loading: false,
+            tracksNum: 1,
+            submitBtn: {
+                success: false,
+                fail: false
+            }
         }
 
         this.formFields = {}
@@ -41,6 +49,10 @@ class NewAlbum extends Component
 
         if (num > this.formFields.tracks.length)
             this.formFields.tracks.push(ReactDOM.findDOMNode(this.refs[`track${num}`]))
+
+        // reset input form
+        if (this.props.activeView === 'NEW_ALBUM_VIEW' && this.state.tracksNum < 2)
+            this.setFocusOnInput()
     }
 
     updateTracksNum = (e) =>
@@ -94,6 +106,9 @@ class NewAlbum extends Component
         // dont submit
         e.preventDefault()
 
+        if (this.state.loading)
+            return
+
         const title = this.formFields.title.value
         const artist = this.formFields.artist.value
         const year = this.formFields.year.value
@@ -102,48 +117,77 @@ class NewAlbum extends Component
         let tracks = []
         for (let i = 0; i < this.state.tracksNum; i += 1) {
             let track = this.formFields.tracks[i].value
+
+            if (track === null || track === '')
+                continue
+
             tracks.push(track)
         }
 
         const album = { title, artist, year, genre, tracks }
-        // const ENDPOINT_CREATE_ALBUM = 'http://localhost:3000/api/products'
-        const ENDPOINT_CREATE_ALBUM = 'https://rest0832970.herokuapp.com/api/products'
+        const ENDPOINT = `${HOST_URL}/api/products`
 
         // post new album data to server
-        axios.post(ENDPOINT_CREATE_ALBUM, album, { headers: { 'Content-Type': 'application/json' }, data: {} })
-            .then(result => {
-                // get new album list data from server
-                axios.get('https://rest0832970.herokuapp.com/api/products')
-                // axios.get('http://localhost:3000/api/products')
-                    .then(response => {
-                        this.props.addAlbumsData(response.data.items)
-                        this.props.selectView('ALBUMS_VIEW')
-                    })
-                    .catch(error => {
-                        console.warn('Unable to GET from api.', error)
-                        this.props.selectView('ALBUMS_VIEW')
-                    })
-            })
-            .catch(error => {
-                console.log('fail add', error)
-                this.props.selectView('ALBUMS_VIEW')
-            })
+        this.setState({ loading: true }, () => {
+            axios.post(ENDPOINT, album, {headers: {'Content-Type': 'application/json'}, data: {}})
+                .then(result => {
+                    // get new album list data from server
+                    axios.get(ENDPOINT)
+                        .then(response => {
+                            this.setState({ submitBtn: { success: true } }, () => {
+                                setTimeout(() => {
+                                    this.setState({ loading: false, tracksNum: 1 }, () => {
+                                        this.props.addAlbumsData(response.data.items)
+                                        this.props.selectView('ALBUMS_VIEW')
+                                        this.clearInputFields()
+
+                                        this.setState({
+                                            submitBtn: {
+                                                success: false
+                                            }
+                                        })
+                                    })
+                                }, 500)
+                            })
+                        })
+                        .catch(error => {
+                            this.setState({ loading: false }, () => {
+                                console.warn('Unable to GET from api.', error)
+                                this.props.selectView('ALBUMS_VIEW')
+                            })
+                        })
+                })
+                .catch(error => { console.log('fail add', error) })
+        })
     }
 
     clearInputFields = () =>
     {
-
+        this.formFields.title.value = null
+        this.formFields.artist.value = null
+        this.formFields.year.value = null
+        this.formFields.genre.value = null
+        this.formFields.tracks.forEach(track => track.value = null)
     }
+
+    setFocusOnInput = () => ReactDOM.findDOMNode(this.refs.title).focus()
 
     exitView = () => this.props.selectView('ALBUMS_VIEW')
 
     render()
     {
         const { activeView } = this.props
-        let wrapperClass = 'wrapper new-album'
 
+        let wrapperClass = 'wrapper new-album'
         if (activeView === 'NEW_ALBUM_VIEW')
-            wrapperClass = 'wrapper new-album active'
+            wrapperClass += ' active'
+
+        let submitClass = 'btn'
+        if (this.state.loading)
+            submitClass += ' btn-loading'
+
+        if (this.state.submitBtn.success)
+            submitClass += ' success'
 
         return (
             <div className={wrapperClass}>
@@ -170,7 +214,7 @@ class NewAlbum extends Component
                         {this.renderTracksInputList()}
                     </div>
 
-                    <input type="submit" id="submit" name="submit" className="btn"/>
+                    <input type="submit" id="submit" name="submit" className={submitClass}/>
                 </form>
             </div>
         )

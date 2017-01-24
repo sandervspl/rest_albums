@@ -16,9 +16,6 @@ html
   background -webkit-linear-gradient(top left, _red, _orange)
   background linear-gradient(to bottom right, _red, _orange)
 
-ul li
-  list-style none
-
 .loading
   position absolute
   top 0
@@ -60,3 +57,13 @@ ul li
   border 0 !important
   border-radius 20px
   cursor pointer
+
+  &.btn-loading
+    color transparent
+    background rgba(255,255,255,0.5) url(/public/images/spinner.svg) center/20% no-repeat
+    z-index 10000
+    cursor progress
+
+  &.success
+    background #7cd88a
+    color _white

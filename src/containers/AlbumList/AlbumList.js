@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 
 // actions
-import { addInitialAlbumsData, selectAlbum } from '../../actions/index'
+import { addAlbumsData, selectAlbum } from '../../actions/index'
 
 // style
 import './style.styl'
@@ -25,10 +25,11 @@ class AlbumList extends Component
     {
         this.setState({ loading: true }, () => {
             // load initial data and store it
-            axios.get('https://rest0832970.herokuapp.com/api/products')
+            // axios.get('https://rest0832970.herokuapp.com/api/products')
+            axios.get('http://localhost:3000/api/products')
                 .then(response => {
                     this.setState({ loading: false }, () => {
-                        this.props.addAlbums(response.data.items)
+                        this.props.addAlbumsData(response.data.items)
                     })
                 })
                 .catch(error => {
@@ -47,7 +48,7 @@ class AlbumList extends Component
                     className={c}
                     onClick={() => this.props.selectAlbum(album)}
                 >
-                    {album.name}
+                    {album.title}
                 </li>
             )
         })
@@ -81,7 +82,7 @@ function mapStateToProps(state) {
 // Get actions and pass them as props
 function matchDispatchToProps(dispatch) {
     return bindActionCreators({
-        addAlbums: addInitialAlbumsData,
+        addAlbumsData,
         selectAlbum
     }, dispatch)
 }

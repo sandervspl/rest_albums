@@ -5,9 +5,9 @@ export const selectAlbum = (album) => {
     }
 }
 
-export const addInitialAlbumsData = (data) => {
+export const addAlbumsData = (data) => {
     return {
-        type: 'ADD_INITIAL_ALBUMS_DATA',
+        type: 'ADD_ALBUMS_DATA',
         payload: data
     }
 }

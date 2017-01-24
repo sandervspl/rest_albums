@@ -5,6 +5,9 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
+// actions
+import { selectView, addAlbumsData } from '../../actions/index'
+
 // style
 import './style.styl'
 
@@ -17,6 +20,27 @@ class NewAlbum extends Component
         this.state = {
             tracksNum: 1
         }
+
+        this.formFields = {}
+    }
+
+    componentDidMount = () =>
+    {
+        this.formFields = {
+            title: ReactDOM.findDOMNode(this.refs.title),
+            artist: ReactDOM.findDOMNode(this.refs.artist),
+            year: ReactDOM.findDOMNode(this.refs.year),
+            genre: ReactDOM.findDOMNode(this.refs.genre),
+            tracks: [ ReactDOM.findDOMNode(this.refs['track1']) ]
+        }
+    }
+
+    componentDidUpdate = () =>
+    {
+        const num = this.state.tracksNum
+
+        if (num > this.formFields.tracks.length)
+            this.formFields.tracks.push(ReactDOM.findDOMNode(this.refs[`track${num}`]))
     }
 
     updateTracksNum = (e) =>
@@ -26,6 +50,7 @@ class NewAlbum extends Component
 
         if (val === null || val === '') {
             const num = this.state.tracksNum - 1
+            this.formFields.tracks.splice(-1,1)
             this.setState({ tracksNum: num })
         }
         else if (val.length === 1) {
@@ -69,29 +94,48 @@ class NewAlbum extends Component
         // dont submit
         e.preventDefault()
 
-        const title = ReactDOM.findDOMNode(this.refs.title).value
-        const artist = ReactDOM.findDOMNode(this.refs.artist).value
-        const year = ReactDOM.findDOMNode(this.refs.year).value
-        const genre = ReactDOM.findDOMNode(this.refs.genre).value
+        const title = this.formFields.title.value
+        const artist = this.formFields.artist.value
+        const year = this.formFields.year.value
+        const genre = this.formFields.genre.value
 
         let tracks = []
-        for (let i = 1; i < this.state.tracksNum; i += 1) {
-            let track = ReactDOM.findDOMNode(this.refs[`track${i}`]).value
+        for (let i = 0; i < this.state.tracksNum; i += 1) {
+            let track = this.formFields.tracks[i].value
             tracks.push(track)
         }
 
-        const endpoint = 'https://rest0832970.herokuapp.com/api/products'
-        const options = { title, artist, year, genre, tracks }
+        const album = { title, artist, year, genre, tracks }
+        const ENDPOINT_CREATE_ALBUM = 'http://localhost:3000/api/products'
+        // const ENDPOINT_CREATE_ALBUM = 'https://rest0832970.herokuapp.com/api/products'
 
-        axios.post(endpoint, options)
+        // post new album data to server
+        axios.post(ENDPOINT_CREATE_ALBUM, album, { headers: { 'Content-Type': 'application/json' }, data: {} })
             .then(result => {
-                console.log('posted to api')
-                console.log(result)
+                // get new album list data from server
+                // axios.get('https://rest0832970.herokuapp.com/api/products')
+                axios.get('http://localhost:3000/api/products')
+                    .then(response => {
+                        this.props.addAlbumsData(response.data.items)
+                        this.props.selectView('ALBUMS_VIEW')
+                    })
+                    .catch(error => {
+                        console.warn('Unable to GET from api.', error)
+                        this.props.selectView('ALBUMS_VIEW')
+                    })
             })
             .catch(error => {
-                console.log('Unable to POST to api', error)
+                console.log('fail add', error)
+                this.props.selectView('ALBUMS_VIEW')
             })
     }
+
+    clearInputFields = () =>
+    {
+
+    }
+
+    exitView = () => this.props.selectView('ALBUMS_VIEW')
 
     render()
     {
@@ -104,6 +148,7 @@ class NewAlbum extends Component
         return (
             <div className={wrapperClass}>
                 <h1 className="title-big">New Album</h1>
+                <span className="exit" onClick={this.exitView}>×</span>
                 <form action="" onSubmit={this.handleSubmit}>
                     <label htmlFor="title">
                         <input type="text" id="title" name="title" ref="title" placeholder="title" className="row--50 fat" autoFocus="autoFocus"/>
@@ -141,7 +186,10 @@ function mapStateToProps(state) {
 
 // Get actions and pass them as props
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({}, dispatch)
+    return bindActionCreators({
+        selectView,
+        addAlbumsData
+    }, dispatch)
 }
 
 // We don't want to return the plain component anymore, we want to return the smart Container

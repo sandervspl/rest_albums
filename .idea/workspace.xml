@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2e540d9-65cc-4998-b532-081aa5ba1780" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/actions/index.js" afterPath="$PROJECT_DIR$/src/actions/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/containers/AlbumDetails/AlbumDetails.js" afterPath="$PROJECT_DIR$/src/containers/AlbumDetails/AlbumDetails.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/containers/AlbumList/AlbumList.js" afterPath="$PROJECT_DIR$/src/containers/AlbumList/AlbumList.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/containers/NewAlbum/NewAlbum.js" afterPath="$PROJECT_DIR$/src/containers/NewAlbum/NewAlbum.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/containers/NewAlbum/style.styl" afterPath="$PROJECT_DIR$/src/containers/NewAlbum/style.styl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/reducers/ReducerAlbums.js" afterPath="$PROJECT_DIR$/src/reducers/ReducerAlbums.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -69,8 +64,8 @@
       <file leaf-file-name="AlbumList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/AlbumList/AlbumList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1044">
-              <caret line="84" column="21" lean-forward="false" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="21" />
+            <state relative-caret-position="176">
+              <caret line="30" column="37" lean-forward="false" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -79,8 +74,8 @@
       <file leaf-file-name="NewAlbum.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/containers/NewAlbum/NewAlbum.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="107" column="17" lean-forward="false" selection-start-line="107" selection-start-column="17" selection-end-line="107" selection-end-column="17" />
+            <state relative-caret-position="173">
+              <caret line="117" column="34" lean-forward="false" selection-start-line="117" selection-start-column="34" selection-end-line="117" selection-end-column="34" />
               <folding>
                 <element signature="n#!!block;n#renderTracksInputList#0;n#NewAlbum#0" expanded="false" />
               </folding>
@@ -167,9 +162,9 @@
         <option value="$PROJECT_DIR$/src/containers/AlbumList/style.styl" />
         <option value="$PROJECT_DIR$/src/containers/AlbumDetails/AlbumDetails.js" />
         <option value="$PROJECT_DIR$/src/containers/NewAlbum/style.styl" />
-        <option value="$PROJECT_DIR$/src/containers/AlbumList/AlbumList.js" />
         <option value="$PROJECT_DIR$/src/reducers/ReducerAlbums.js" />
         <option value="$PROJECT_DIR$/src/actions/index.js" />
+        <option value="$PROJECT_DIR$/src/containers/AlbumList/AlbumList.js" />
         <option value="$PROJECT_DIR$/src/containers/NewAlbum/NewAlbum.js" />
       </list>
     </option>
@@ -574,12 +569,12 @@
       <workItem from="1484646727514" duration="11000" />
       <workItem from="1484832830637" duration="5985000" />
       <workItem from="1484862541118" duration="938000" />
-      <workItem from="1485003901238" duration="41155000" />
+      <workItem from="1485003901238" duration="41295000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52491000" />
+    <option name="totallyTimeSpent" value="52631000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1280" height="774" extended-state="6" />
@@ -988,16 +983,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/AlbumList/AlbumList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1044">
-          <caret line="84" column="21" lean-forward="false" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="21" />
+        <state relative-caret-position="176">
+          <caret line="30" column="37" lean-forward="false" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/NewAlbum/NewAlbum.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="107" column="17" lean-forward="false" selection-start-line="107" selection-start-column="17" selection-end-line="107" selection-end-column="17" />
+        <state relative-caret-position="173">
+          <caret line="117" column="34" lean-forward="false" selection-start-line="117" selection-start-column="34" selection-end-line="117" selection-end-column="34" />
           <folding>
             <element signature="n#!!block;n#renderTracksInputList#0;n#NewAlbum#0" expanded="false" />
           </folding>

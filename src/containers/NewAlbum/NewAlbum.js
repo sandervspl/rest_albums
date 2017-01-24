@@ -106,15 +106,15 @@ class NewAlbum extends Component
         }
 
         const album = { title, artist, year, genre, tracks }
-        const ENDPOINT_CREATE_ALBUM = 'http://localhost:3000/api/products'
-        // const ENDPOINT_CREATE_ALBUM = 'https://rest0832970.herokuapp.com/api/products'
+        // const ENDPOINT_CREATE_ALBUM = 'http://localhost:3000/api/products'
+        const ENDPOINT_CREATE_ALBUM = 'https://rest0832970.herokuapp.com/api/products'
 
         // post new album data to server
         axios.post(ENDPOINT_CREATE_ALBUM, album, { headers: { 'Content-Type': 'application/json' }, data: {} })
             .then(result => {
                 // get new album list data from server
-                // axios.get('https://rest0832970.herokuapp.com/api/products')
-                axios.get('http://localhost:3000/api/products')
+                axios.get('https://rest0832970.herokuapp.com/api/products')
+                // axios.get('http://localhost:3000/api/products')
                     .then(response => {
                         this.props.addAlbumsData(response.data.items)
                         this.props.selectView('ALBUMS_VIEW')

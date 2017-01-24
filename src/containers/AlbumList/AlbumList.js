@@ -25,8 +25,8 @@ class AlbumList extends Component
     {
         this.setState({ loading: true }, () => {
             // load initial data and store it
-            // axios.get('https://rest0832970.herokuapp.com/api/products')
-            axios.get('http://localhost:3000/api/products')
+            axios.get('https://rest0832970.herokuapp.com/api/products')
+            // axios.get('http://localhost:3000/api/products')
                 .then(response => {
                     this.setState({ loading: false }, () => {
                         this.props.addAlbumsData(response.data.items)

@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2e540d9-65cc-4998-b532-081aa5ba1780" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/prog2_albums.iml" afterPath="$PROJECT_DIR$/.idea/prog2_albums.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/actions/index.js" afterPath="$PROJECT_DIR$/src/actions/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App.js" afterPath="$PROJECT_DIR$/src/components/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/containers/AlbumDetails/AlbumDetails.js" afterPath="$PROJECT_DIR$/src/containers/AlbumDetails/AlbumDetails.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/containers/AlbumList/AlbumList.js" afterPath="$PROJECT_DIR$/src/containers/AlbumList/AlbumList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/containers/AlbumList/style.styl" afterPath="$PROJECT_DIR$/src/containers/AlbumList/style.styl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/containers/NewAlbum/NewAlbum.js" afterPath="$PROJECT_DIR$/src/containers/NewAlbum/NewAlbum.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/style/style.styl" afterPath="$PROJECT_DIR$/src/style/style.styl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vars/server.js" afterPath="$PROJECT_DIR$/src/vars/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yarn.lock" afterPath="$PROJECT_DIR$/yarn.lock" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/vars/server.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
-              <caret line="1" column="47" lean-forward="false" selection-start-line="1" selection-start-column="47" selection-end-line="1" selection-end-column="47" />
+              <caret line="1" column="41" lean-forward="false" selection-start-line="1" selection-start-column="41" selection-end-line="1" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -74,10 +64,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditAlbum.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EditAlbum.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/EditAlbum/EditAlbum.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
+            <state relative-caret-position="39">
               <caret line="34" column="21" lean-forward="false" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
               <folding>
                 <element signature="e#926#1300#0" expanded="false" />
@@ -183,7 +173,6 @@
         <option value="$PROJECT_DIR$/src/containers/Albums/style.styl" />
         <option value="$PROJECT_DIR$/src/containers/AlbumDetails/style.styl" />
         <option value="$PROJECT_DIR$/src/containers/EditAlbum.js" />
-        <option value="$PROJECT_DIR$/src/vars/server.js" />
         <option value="$PROJECT_DIR$/src/containers/AlbumList/style.styl" />
         <option value="$PROJECT_DIR$/src/containers/Albums/Albums.js" />
         <option value="$PROJECT_DIR$/src/components/App.js" />
@@ -195,6 +184,7 @@
         <option value="$PROJECT_DIR$/src/containers/NewAlbum/NewAlbum.js" />
         <option value="$PROJECT_DIR$/src/containers/AlbumList/AlbumList.js" />
         <option value="$PROJECT_DIR$/src/containers/EditAlbum/EditAlbum.js" />
+        <option value="$PROJECT_DIR$/src/vars/server.js" />
       </list>
     </option>
   </component>
@@ -581,12 +571,12 @@
       <workItem from="1485335890079" duration="106000" />
       <workItem from="1485336035178" duration="117000" />
       <workItem from="1485336191058" duration="2887000" />
-      <workItem from="1485339100372" duration="13312000" />
+      <workItem from="1485339100372" duration="13664000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75461000" />
+    <option name="totallyTimeSpent" value="75813000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -608,7 +598,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991204" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26099706" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26099706" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -874,14 +864,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vars/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="47" lean-forward="false" selection-start-line="1" selection-start-column="47" selection-end-line="1" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/reducers/ReducerView.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -964,7 +946,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/EditAlbum/EditAlbum.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
+        <state relative-caret-position="39">
           <caret line="34" column="21" lean-forward="false" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
           <folding>
             <element signature="e#926#1300#0" expanded="false" />
@@ -979,6 +961,14 @@
             <marker date="1485362672000" expanded="true" signature="7989:8140" ph="..." />
             <marker date="1485362672000" expanded="true" signature="8190:8272" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vars/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="41" lean-forward="false" selection-start-line="1" selection-start-column="41" selection-end-line="1" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>

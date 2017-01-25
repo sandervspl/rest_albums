@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+// actions
+import { selectView } from '../../actions/index'
+
 // style
 import './style.styl'
 
@@ -23,6 +26,10 @@ class AlbumDetails extends Component
         })
     }
 
+    toEditAlbumView = () => {
+        this.props.selectView('EDIT_ALBUM_VIEW')
+    }
+
     render()
     {
         if (this.props.activeAlbum === null) {
@@ -39,6 +46,7 @@ class AlbumDetails extends Component
             return (
                 <div className="column--50">
                     <h1 className="title-big">Album</h1>
+                    <span className="btn-sm" onClick={this.toEditAlbumView}>Edit Album</span>
                     <div className="relative">
                         <ul className="album-details">
                             <li> <span className="album-tag">title</span> {activeAlbum.title} </li>
@@ -67,7 +75,9 @@ function mapStateToProps(state) {
 
 // Get actions and pass them as props
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch)
+    return bindActionCreators({
+        selectView
+    }, dispatch)
 }
 
 // We don't want to return the plain component anymore, we want to return the smart Container

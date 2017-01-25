@@ -4,18 +4,16 @@ import ReactDOM from 'react-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import axios from 'axios'
+const _ = require('lodash')
 
 // vars
 import { HOST_URL } from '../../vars/server'
 
 // actions
-import { selectView, addAlbumsData } from '../../actions/index'
-
-// style
-import './style.styl'
+import { selectView, selectAlbum, addAlbumsData } from '../../actions/index'
 
 
-class NewAlbum extends Component
+class EditAlbum extends Component
 {
     constructor(props)
     {
@@ -32,28 +30,45 @@ class NewAlbum extends Component
         this.form = {}
     }
 
+    reset = () =>
+    {
+        this.setState({
+            loading: false,
+            tracksNum: 1,
+            submitBtn: {
+                success: false,
+                fail: false
+            }
+        })
+    }
+
     componentDidMount = () =>
     {
+        // grab fields
         this.form = {
+            id: ReactDOM.findDOMNode(this.refs.albumid),
             title: ReactDOM.findDOMNode(this.refs.title),
             artist: ReactDOM.findDOMNode(this.refs.artist),
             year: ReactDOM.findDOMNode(this.refs.year),
             genre: ReactDOM.findDOMNode(this.refs.genre),
-            tracks: [ ReactDOM.findDOMNode(this.refs['track1']) ]
+            tracks: []
         }
     }
 
-    componentDidUpdate = () =>
+    componentDidUpdate = () => this.syncNumAndLength()
+
+    syncNumAndLength = () =>
     {
         const num = this.state.tracksNum
+        const length = this.form.tracks.length
 
-        if (num > this.form.tracks.length)
-            this.form.tracks.push(ReactDOM.findDOMNode(this.refs[`track${num}`]))
-
-        // reset input form
-        if (this.props.activeView === 'NEW_ALBUM_VIEW' && this.state.tracksNum < 2)
-            this.setFocusOnInput()
+        if (num > length) {
+            this.form.tracks.push(ReactDOM.findDOMNode(this.refs[`track${length + 1}`]))
+            this.syncNumAndLength()
+        }
     }
+
+    componentWillReceiveProps = () => this.fillInputFields()
 
     updateTracksNum = (e) =>
     {
@@ -72,8 +87,13 @@ class NewAlbum extends Component
             if (num > id + 1)
                 return
 
-            this.setState({tracksNum: num})
+            this.setState({ tracksNum: num })
         }
+    }
+
+    exitView = () => {
+        this.props.selectView('ALBUMS_VIEW')
+        this.clearInputFields()
     }
 
     renderTracksInputList()
@@ -102,63 +122,71 @@ class NewAlbum extends Component
         return tracks
     }
 
-    handleSubmit = (e) => {
+    updateAlbumToServer = (album) =>
+    {
+        const ENDPOINT_GET = `${HOST_URL}/api/products`
+        const ENDPOINT_PUT = `${HOST_URL}/api/products/${album.id}`
+
+        axios.put(ENDPOINT_PUT, album, {headers: {'Content-Type': 'application/json'}, data: {}})
+            .then(response => {
+                // get new album list data from server
+                axios.get(ENDPOINT_GET)
+                    .then(response => {
+                        this.setState({ submitBtn: { success: true } }, () => this.refreshAlbumList(response.data.items, album))
+                    })
+                    .catch(error => {
+                        this.setState({ loading: false }, () => {
+                            console.warn('Unable to PUT to api.', error)
+                            this.props.selectView('ALBUMS_VIEW')
+                        })
+                    })
+            })
+            .catch(error => { console.log('fail add', error) })
+    }
+
+    refreshAlbumList = (albums, album) =>
+    {
+        this.setState({ loading: false, tracksNum: 1 }, () => {
+            this.props.addAlbumsData(albums)
+            this.props.selectAlbum(album)
+            this.props.selectView('ALBUMS_VIEW')
+            this.clearInputFields()
+
+            this.setState({
+                submitBtn: {
+                    success: false
+                }
+            })
+        })
+    }
+
+    handleSubmit = (e) =>
+    {
         // dont submit
         e.preventDefault()
 
         if (this.state.loading)
             return
 
+        const id = this.form.id.value
         const title = this.form.title.value
         const artist = this.form.artist.value
         const year = this.form.year.value
         const genre = this.form.genre.value
 
+        // grab tracklist
         let tracks = []
-        for (let i = 0; i < this.state.tracksNum; i += 1) {
-            let track = this.form.tracks[i].value
+        this.form.tracks.forEach(track => {
+            if (track.value === '')
+                return
 
-            if (track === null || track === '')
-                continue
+            tracks.push(track.value)
+        })
 
-            tracks.push(track)
-        }
-
-        const album = { title, artist, year, genre, tracks }
-        const ENDPOINT = `${HOST_URL}/api/products`
+        const album = { id, title, artist, year, genre, tracks }
 
         // post new album data to server
-        this.setState({ loading: true }, () => {
-            axios.post(ENDPOINT, album, {headers: {'Content-Type': 'application/json'}, data: {}})
-                .then(result => {
-                    // get new album list data from server
-                    axios.get(ENDPOINT)
-                        .then(response => {
-                            this.setState({ submitBtn: { success: true } }, () => {
-                                setTimeout(() => {
-                                    this.setState({ loading: false, tracksNum: 1 }, () => {
-                                        this.props.addAlbumsData(response.data.items)
-                                        this.props.selectView('ALBUMS_VIEW')
-                                        this.clearInputFields()
-
-                                        this.setState({
-                                            submitBtn: {
-                                                success: false
-                                            }
-                                        })
-                                    })
-                                }, 500)
-                            })
-                        })
-                        .catch(error => {
-                            this.setState({ loading: false }, () => {
-                                console.warn('Unable to GET from api.', error)
-                                this.props.selectView('ALBUMS_VIEW')
-                            })
-                        })
-                })
-                .catch(error => { console.log('fail add', error) })
-        })
+        this.setState({ loading: true }, () => this.updateAlbumToServer(album))
     }
 
     clearInputFields = () =>
@@ -167,20 +195,54 @@ class NewAlbum extends Component
         this.form.artist.value = null
         this.form.year.value = null
         this.form.genre.value = null
-        this.form.tracks.forEach(track => track.value = null)
+        this.form.tracks.forEach(track => track.value = '')
+        this.form.tracks = []
+
+        this.reset()
     }
 
-    setFocusOnInput = () => ReactDOM.findDOMNode(this.refs.title).focus()
+    fillInputFields = () =>
+    {
+        // grab album being edited
+        const editAlbum = this.props.activeAlbum
 
-    exitView = () => this.props.selectView('ALBUMS_VIEW')
+        if (_.isEmpty(editAlbum))
+            return
+
+        // fill in fields
+        this.form.title.value = editAlbum.title
+        this.form.artist.value = editAlbum.artist
+        this.form.year.value = editAlbum.year
+        this.form.genre.value = editAlbum.genre
+
+        // fill in all tracks
+        const tracksNum = editAlbum.tracks.length + 1 // 1 extra for empty input field
+        this.setState({ tracksNum }, () => {
+            let tracks = []
+            editAlbum.tracks.forEach((track, index) => {
+                const i = index + 1
+                const input = ReactDOM.findDOMNode(this.refs[`track${i}`])
+
+                if ( ! input)
+                    return
+
+                tracks.push(input)
+                input.value = track
+            })
+
+            this.form.tracks = tracks
+        })
+    }
 
     render()
     {
         const { activeView } = this.props
+        let albumid = this.props.activeAlbum !== null ? this.props.activeAlbum.id : ''
 
         let wrapperClass = 'wrapper new-album'
-        if (activeView === 'NEW_ALBUM_VIEW')
+        if (activeView === 'EDIT_ALBUM_VIEW') {
             wrapperClass += ' active'
+        }
 
         let submitClass = 'btn'
         if (this.state.loading)
@@ -191,9 +253,10 @@ class NewAlbum extends Component
 
         return (
             <div className={wrapperClass}>
-                <h1 className="title-big">New Album</h1>
+                <h1 className="title-big">Edit Album</h1>
                 <span className="exit" onClick={this.exitView}>×</span>
                 <form action="" onSubmit={this.handleSubmit}>
+                    <input type="hidden" ref="albumid" value={albumid}/>
                     <label htmlFor="title">
                         <input type="text" id="title" name="title" ref="title" placeholder="title" className="row--50 fat" autoFocus="autoFocus"/>
                     </label>
@@ -224,7 +287,9 @@ class NewAlbum extends Component
 // Get apps state and pass it as props
 function mapStateToProps(state) {
     return {
-        activeView: state.activeView
+        activeView: state.activeView,
+        editAlbum: state.editAlbum,
+        activeAlbum: state.activeAlbum
     }
 }
 
@@ -232,9 +297,10 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch){
     return bindActionCreators({
         selectView,
-        addAlbumsData
+        addAlbumsData,
+        selectAlbum
     }, dispatch)
 }
 
 // We don't want to return the plain component anymore, we want to return the smart Container
-export default connect(mapStateToProps, matchDispatchToProps)(NewAlbum)
+export default connect(mapStateToProps, matchDispatchToProps)(EditAlbum)

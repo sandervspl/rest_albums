@@ -76,11 +76,9 @@ class AlbumList extends Component
         return this.props.albums.map((album, index) => {
             const c = 'list-item item-' + index
             return (
-                <li
-                    key={album.id}
-                    className={c}
+                <li key={album.id} className={c}
                 >
-                    <span className="delete" data-id={album.id} onClick={this.deleteAlbum}>delete</span>
+                    <span className="btn-sm" data-id={album.id} onClick={this.deleteAlbum}>delete</span>
                     <span onClick={() => this.props.selectAlbum(album)}>{album.title}</span>
                 </li>
             )

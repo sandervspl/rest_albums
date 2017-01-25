@@ -4,6 +4,7 @@
   box-sizing border-box
   font-family 'Roboto', Verdana, sans-serif
   letter-spacing 1px
+  outline none
 
 html, body
   margin  0
@@ -49,6 +50,7 @@ html
   border-left 1px solid white
 
 .btn
+  position relative
   padding 7px 40px
   background _white
   color _red
@@ -67,3 +69,21 @@ html
   &.success
     background #7cd88a
     color _white
+
+  &:active
+    top 2px
+
+.btn-sm
+  position relative
+  background transparent
+  color _white
+  padding 2px 5px
+  margin-right 10px
+  font-size .6em
+  border 1px solid _white
+  vertical-align middle
+  border-radius 10px
+  cursor pointer
+
+  &:active
+    top 2px

@@ -5,10 +5,10 @@ export const selectAlbum = (album) => {
     }
 }
 
-export const addAlbumsData = (data) => {
+export const addAlbumsData = (albums) => {
     return {
         type: 'ADD_ALBUMS_DATA',
-        payload: data
+        payload: albums
     }
 }
 

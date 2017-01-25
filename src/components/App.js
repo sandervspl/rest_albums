@@ -3,6 +3,7 @@ import React from 'react'
 
 // components
 import Albums from '../containers/Albums/Albums'
+import EditAlbum from '../containers/EditAlbum/EditAlbum'
 import Nav from './Nav/Nav'
 import NewAlbum from '../containers/NewAlbum/NewAlbum'
 
@@ -14,6 +15,7 @@ const App = () => (
         <Nav />
         <Albums />
         <NewAlbum />
+        <EditAlbum />
     </div>
 )
 

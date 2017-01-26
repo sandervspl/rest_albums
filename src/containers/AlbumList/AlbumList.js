@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import qs from 'qs'
 
 // vars
 import { HOST_URL } from '../../vars/server'
@@ -20,27 +21,30 @@ class AlbumList extends Component
     {
         super(props)
         this.state = {
-            loading: true
+            loading: true,
+            pageCount: 0,
+            start: null,
+            limit: null
         }
     }
 
-    componentWillMount()
+    componentDidMount = () =>
     {
-        this.setState({ loading: true }, () => {
-            // load initial data and store it
-            const ENDPOINT = `${HOST_URL}/api/products`
+        let fullUrl = this.getFullUrl()
+        let urlParams = this.getParamsFromUrl(fullUrl)
 
-            axios.get(ENDPOINT)
-                .then(response => {
-                    this.setState({ loading: false }, () => {
-                        this.props.addAlbumsData(response.data.items)
-                    })
-                })
-                .catch(error => {
-                    this.setState({ loading: false }, console.warn('Unable to GET from api.', error))
-                })
-        })
+        if (urlParams === null || urlParams === '')
+            console.log('no URL parameters')
+
+        // create pagination urls
+        let params = qs.parse(urlParams)
+
+        this.loadAlbumsFromServer()
     }
+
+    getFullUrl = () => window.location.search
+
+    getParamsFromUrl = (url) => url.slice(url.indexOf('?') + 1, url.length)
 
     deleteAlbum = (e) =>
     {
@@ -71,15 +75,37 @@ class AlbumList extends Component
         })
     }
 
-    renderAlbumList()
+    loadAlbumsFromServer = () =>
+    {
+        this.setState({ loading: true }, () => {
+            // load initial data and store it
+            const ENDPOINT = `${HOST_URL}/api/products`
+
+            axios.get(ENDPOINT)
+                .then(response => {
+                    this.setState({ loading: false }, () => {
+                        this.props.addAlbumsData(response.data.items)
+                    })
+                })
+                .catch(error => {
+                    this.setState({ loading: false }, console.warn('Unable to GET from api.', error))
+                })
+        })
+    }
+
+    handlePageClick = () =>
+    {
+
+    }
+
+    renderAlbumList = () =>
     {
         return this.props.albums.map((album, index) => {
             const c = 'list-item item-' + index
             return (
-                <li key={album.id} className={c}
-                >
+                <li key={album.id} className={c}>
                     <span className="btn-sm" data-id={album.id} onClick={this.deleteAlbum}>delete</span>
-                    <span onClick={() => this.props.selectAlbum(album)}>{album.title}</span>
+                    <span onClick={() => this.props.selectAlbum(album)}>{album.artist} - {album.title}</span>
                 </li>
             )
         })
@@ -98,6 +124,9 @@ class AlbumList extends Component
                         {this.renderAlbumList()}
                     </ul>
                 </div>
+
+
+
             </div>
         )
     }

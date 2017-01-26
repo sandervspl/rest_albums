@@ -21,7 +21,9 @@ class AlbumDetails extends Component
     {
         return this.props.activeAlbum.tracks.map((track, index) => {
             return (
-                <li key={index}>{track}</li>
+                <li key={index}>
+                    <span className="list-item-number">{index+1}.</span> {track}
+                </li>
             )
         })
     }
@@ -54,9 +56,9 @@ class AlbumDetails extends Component
                             <li> <span className="album-tag">year</span> {activeAlbum.year} </li>
                             <li> <span className="album-tag">genre</span> {activeAlbum.genre} </li>
                             <li> <span className="album-tag">tracks</span>
-                                <ol className="track-list">
+                                <ul className="track-list">
                                     {this.renderTrackList()}
-                                </ol>
+                                </ul>
                                 </li>
                         </ul>
                     </div>

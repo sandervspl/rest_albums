@@ -34,7 +34,6 @@ module.exports = {
             {
                 test: /\.styl?$/,
                 loader: ['style-loader', 'css-loader', 'stylus-loader'],
-                // include: path.join(__dirname, 'src', 'style')
             },
             {
                 test: /\.png$/,

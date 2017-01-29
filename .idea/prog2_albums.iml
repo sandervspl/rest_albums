@@ -18,5 +18,7 @@
     <orderEntry type="library" name="webpack-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="webpack-dev-server-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="lodash-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="react-native-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="react-autosuggest-DefinitelyTyped" level="application" />
   </component>
 </module>

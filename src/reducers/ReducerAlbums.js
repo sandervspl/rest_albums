@@ -5,11 +5,24 @@
 
 // "state = []" is set so that we don't throw an error when app first boots up
 
-export default function (state = [], action) {
+import { REQUEST_ALBUMS, RECEIVE_ALBUMS } from '../actions'
+
+export default function (state = {
+    isFetching: false,
+    items: []
+}, action) {
     switch (action.type)
     {
-        case 'ADD_ALBUMS_DATA':
-            return action.payload
+        case REQUEST_ALBUMS:
+            return Object.assign({}, state, {
+                isFetching: true
+            })
+
+        case RECEIVE_ALBUMS:
+            return Object.assign({}, state, {
+                isFetching: false,
+                items: action.albums
+            })
 
         default:
             return state

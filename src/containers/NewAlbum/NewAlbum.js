@@ -3,13 +3,9 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import axios from 'axios'
-
-// vars
-import { HOST_URL } from '../../vars/server'
 
 // actions
-import { selectView, addAlbumsData } from '../../actions/index'
+import { selectView, addAlbum } from '../../actions/index'
 
 // style
 import './style.styl'
@@ -53,6 +49,14 @@ class NewAlbum extends Component
         // reset input form
         if (this.props.activeView === 'NEW_ALBUM_VIEW' && this.state.tracksNum < 2)
             this.setFocusOnInput()
+    }
+
+    componentWillReceiveProps = () =>
+    {
+        if (this.props.isFetching)
+            this.setState({ loading: true })
+        else
+            this.setState({ loading: false })
     }
 
     updateTracksNum = (e) =>
@@ -125,40 +129,8 @@ class NewAlbum extends Component
         }
 
         const album = { title, artist, year, genre, tracks }
-        const ENDPOINT = `${HOST_URL}/api/products`
 
-        // post new album data to server
-        this.setState({ loading: true }, () => {
-            axios.post(ENDPOINT, album, {headers: {'Content-Type': 'application/json'}, data: {}})
-                .then(result => {
-                    // get new album list data from server
-                    axios.get(ENDPOINT)
-                        .then(response => {
-                            this.setState({ submitBtn: { success: true } }, () => {
-                                setTimeout(() => {
-                                    this.setState({ loading: false, tracksNum: 1 }, () => {
-                                        this.props.addAlbumsData(response.data.items)
-                                        this.props.selectView('ALBUMS_VIEW')
-                                        this.clearInputFields()
-
-                                        this.setState({
-                                            submitBtn: {
-                                                success: false
-                                            }
-                                        })
-                                    })
-                                }, 500)
-                            })
-                        })
-                        .catch(error => {
-                            this.setState({ loading: false }, () => {
-                                console.warn('Unable to GET from api.', error)
-                                this.props.selectView('ALBUMS_VIEW')
-                            })
-                        })
-                })
-                .catch(error => { console.log('fail add', error) })
-        })
+        this.setState({ loading: true }, () => this.props.addAlbum(album))
     }
 
     clearInputFields = () =>
@@ -224,7 +196,8 @@ class NewAlbum extends Component
 // Get apps state and pass it as props
 function mapStateToProps(state) {
     return {
-        activeView: state.activeView
+        activeView: state.activeView,
+        isFetching: state.albums.isFetching
     }
 }
 
@@ -232,7 +205,7 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch){
     return bindActionCreators({
         selectView,
-        addAlbumsData
+        addAlbum
     }, dispatch)
 }
 

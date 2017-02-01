@@ -1,5 +1,5 @@
 .gitignore
-.idea/
+.idea/*
 node_modules/
 /npm-debug.log
 /public/images/bg2.jpg

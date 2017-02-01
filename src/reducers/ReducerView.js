@@ -10,7 +10,6 @@ export default function (state = 'ALBUMS_VIEW', action) {
     {
         case 'VIEW_SELECTED':
             return action.payload
-            break
 
         default:
             return state

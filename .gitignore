@@ -3,3 +3,4 @@
 node_modules/
 /npm-debug.log
 /public/images/bg2.jpg
+.idea/workspace.xml
